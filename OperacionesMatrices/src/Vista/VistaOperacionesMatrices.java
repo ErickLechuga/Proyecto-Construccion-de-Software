@@ -10,6 +10,7 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 /**
  *
@@ -29,6 +30,30 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         getjButtonLimpiar().setEnabled(false);
         getjButtonEstablecer().setEnabled(false);
         getjButtonResultado().setEnabled(false);
+    }
+
+    public JTable getjTableMatriz1() {
+        return jTableMatriz1;
+    }
+
+    public void setjTableMatriz1(JTable jTableMatriz1) {
+        this.jTableMatriz1 = jTableMatriz1;
+    }
+
+    public JTable getjTableMatriz2() {
+        return jTableMatriz2;
+    }
+
+    public void setjTableMatriz2(JTable jTableMatriz2) {
+        this.jTableMatriz2 = jTableMatriz2;
+    }
+
+    public JTable getjTableResultados() {
+        return jTableResultados;
+    }
+
+    public void setjTableResultados(JTable jTableResultados) {
+        this.jTableResultados = jTableResultados;
     }
 
     /**
@@ -53,9 +78,15 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         jComboBoxColumnas = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jPanelMatriz1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableMatriz1 = new javax.swing.JTable();
         jPanelMatriz2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMatriz2 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jPanelResultado = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableResultados = new javax.swing.JTable();
         jButtonLimpiar = new javax.swing.JButton();
         jButtonResultado = new javax.swing.JButton();
         jButtonEstablecer = new javax.swing.JButton();
@@ -91,39 +122,69 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
 
         jLabel3.setText("Columnas");
 
+        jTableMatriz1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTableMatriz1);
+
         javax.swing.GroupLayout jPanelMatriz1Layout = new javax.swing.GroupLayout(jPanelMatriz1);
         jPanelMatriz1.setLayout(jPanelMatriz1Layout);
         jPanelMatriz1Layout.setHorizontalGroup(
             jPanelMatriz1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 225, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
         );
         jPanelMatriz1Layout.setVerticalGroup(
             jPanelMatriz1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 201, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
         );
+
+        jTableMatriz2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTableMatriz2);
 
         javax.swing.GroupLayout jPanelMatriz2Layout = new javax.swing.GroupLayout(jPanelMatriz2);
         jPanelMatriz2.setLayout(jPanelMatriz2Layout);
         jPanelMatriz2Layout.setHorizontalGroup(
             jPanelMatriz2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 214, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
         );
         jPanelMatriz2Layout.setVerticalGroup(
             jPanelMatriz2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 201, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
         );
 
         jLabel4.setText("Resultado");
+
+        jTableResultados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jTableResultados);
 
         javax.swing.GroupLayout jPanelResultadoLayout = new javax.swing.GroupLayout(jPanelResultado);
         jPanelResultado.setLayout(jPanelResultadoLayout);
         jPanelResultadoLayout.setHorizontalGroup(
             jPanelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
         );
         jPanelResultadoLayout.setVerticalGroup(
             jPanelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 177, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
         );
 
         jButtonLimpiar.setText("Limpiar");
@@ -379,6 +440,12 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
     private javax.swing.JPanel jPanelMatriz1;
     private javax.swing.JPanel jPanelMatriz2;
     private javax.swing.JPanel jPanelResultado;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTableMatriz1;
+    private javax.swing.JTable jTableMatriz2;
+    private javax.swing.JTable jTableResultados;
     // End of variables declaration//GEN-END:variables
 
     
