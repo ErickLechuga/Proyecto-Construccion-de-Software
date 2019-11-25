@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -30,6 +31,14 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         getjButtonLimpiar().setEnabled(false);
         getjButtonEstablecer().setEnabled(false);
         getjButtonResultado().setEnabled(false);
+        
+        getjButtonDeterminante().setBackground(Color.LIGHT_GRAY);
+        getjButtonInversa().setBackground(Color.LIGHT_GRAY);        
+        getjButtonMultipEscalar().setBackground(Color.LIGHT_GRAY);;
+       getjButtonMultiplicación().setBackground(Color.LIGHT_GRAY);;       
+        getjButtonSolucionCramer().setBackground(Color.LIGHT_GRAY);;
+        getjButtonSolucionGauss().setBackground(Color.LIGHT_GRAY);;
+        getjButtonSuma().setBackground(Color.LIGHT_GRAY);
     }
 
     public JTable getjTableMatriz1() {
