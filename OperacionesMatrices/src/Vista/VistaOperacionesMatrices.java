@@ -10,7 +10,9 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
@@ -31,6 +33,7 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         getjButtonLimpiar().setEnabled(false);
         getjButtonEstablecer().setEnabled(false);
         getjButtonResultado().setEnabled(false);
+        getjButtonLimpiarMatriz().setEnabled(false);
         
         getjButtonDeterminante().setBackground(Color.LIGHT_GRAY);
         getjButtonInversa().setBackground(Color.LIGHT_GRAY);        
@@ -86,19 +89,18 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         jComboBoxFilas = new javax.swing.JComboBox();
         jComboBoxColumnas = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
-        jPanelMatriz1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableMatriz1 = new javax.swing.JTable();
-        jPanelMatriz2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableMatriz2 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
-        jPanelResultado = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTableResultados = new javax.swing.JTable();
         jButtonLimpiar = new javax.swing.JButton();
         jButtonResultado = new javax.swing.JButton();
         jButtonEstablecer = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableMatriz1 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableResultados = new javax.swing.JTable();
+        jLabelOperador = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMatriz2 = new javax.swing.JTable();
+        jButtonLimpiarMatriz = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,22 +108,22 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
 
         jButtonSuma.setText("Suma de Matrices");
 
-        jButtonMultipEscalar.setText("Multiplicación de una matriz por un escalar");
+        jButtonMultipEscalar.setText("Mult. por escalar");
         jButtonMultipEscalar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonMultipEscalarActionPerformed(evt);
             }
         });
 
-        jButtonMultiplicación.setText("Multiplicación de matrices");
+        jButtonMultiplicación.setText("Mult de matrices");
 
-        jButtonInversa.setText("Inversa de una matriz por Gauss-Jordan");
+        jButtonInversa.setText("Inversa");
 
-        jButtonDeterminante.setText("Determinante de una matriz");
+        jButtonDeterminante.setText("Determinante");
 
-        jButtonSolucionCramer.setText("Solución de un sistema de ecuaciones por el método de Cramer");
+        jButtonSolucionCramer.setText("Solución Cramer");
 
-        jButtonSolucionGauss.setText("Solución de un sistema de ecuaciones por el método de Gauss-Jordan");
+        jButtonSolucionGauss.setText("Solución Gauss");
 
         jLabel2.setText("Filas");
 
@@ -130,6 +132,19 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         jComboBoxColumnas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "2", "3", "4", "5" }));
 
         jLabel3.setText("Columnas");
+
+        jLabel4.setText("Resultado");
+
+        jButtonLimpiar.setText("Terminar");
+        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimpiarActionPerformed(evt);
+            }
+        });
+
+        jButtonResultado.setText("Ver resultado");
+
+        jButtonEstablecer.setText("Establecer matriz");
 
         jTableMatriz1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,16 +156,17 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         ));
         jScrollPane2.setViewportView(jTableMatriz1);
 
-        javax.swing.GroupLayout jPanelMatriz1Layout = new javax.swing.GroupLayout(jPanelMatriz1);
-        jPanelMatriz1.setLayout(jPanelMatriz1Layout);
-        jPanelMatriz1Layout.setHorizontalGroup(
-            jPanelMatriz1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-        );
-        jPanelMatriz1Layout.setVerticalGroup(
-            jPanelMatriz1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
+        jTableResultados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jTableResultados);
+
+        jLabelOperador.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jTableMatriz2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -162,122 +178,103 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         ));
         jScrollPane1.setViewportView(jTableMatriz2);
 
-        javax.swing.GroupLayout jPanelMatriz2Layout = new javax.swing.GroupLayout(jPanelMatriz2);
-        jPanelMatriz2.setLayout(jPanelMatriz2Layout);
-        jPanelMatriz2Layout.setHorizontalGroup(
-            jPanelMatriz2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-        );
-        jPanelMatriz2Layout.setVerticalGroup(
-            jPanelMatriz2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-
-        jLabel4.setText("Resultado");
-
-        jTableResultados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane3.setViewportView(jTableResultados);
-
-        javax.swing.GroupLayout jPanelResultadoLayout = new javax.swing.GroupLayout(jPanelResultado);
-        jPanelResultado.setLayout(jPanelResultadoLayout);
-        jPanelResultadoLayout.setHorizontalGroup(
-            jPanelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-        );
-        jPanelResultadoLayout.setVerticalGroup(
-            jPanelResultadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-        );
-
-        jButtonLimpiar.setText("Limpiar");
-        jButtonLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLimpiarActionPerformed(evt);
-            }
-        });
-
-        jButtonResultado.setText("Ver resultado");
-
-        jButtonEstablecer.setText("Establecer matriz");
+        jButtonLimpiarMatriz.setText("Limpiar Matrices");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(jButtonEstablecer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButtonSuma, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(jButtonMultipEscalar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonMultiplicación, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonInversa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonSolucionCramer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonSolucionGauss, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonDeterminante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(jButtonLimpiar)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jButtonSolucionGauss, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                            .addComponent(jButtonMultiplicación, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                            .addComponent(jButtonMultipEscalar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                            .addComponent(jButtonSuma, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(68, 68, 68))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jButtonInversa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButtonDeterminante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(83, 83, 83)
-                                        .addComponent(jPanelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(51, 51, 51)
-                                        .addComponent(jButtonLimpiar))
-                                    .addComponent(jPanelMatriz1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(75, 75, 75)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(71, 71, 71)
+                                .addComponent(jLabelOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(57, 57, 57)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(163, 163, 163)
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(85, 85, 85)
-                                        .addComponent(jButtonEstablecer))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(48, 48, 48)
-                                        .addComponent(jPanelMatriz2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jButtonSolucionCramer, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButtonResultado)
-                            .addComponent(jLabel4))))
-                .addContainerGap())
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jButtonResultado)
+                                        .addGap(52, 52, 52))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(35, 35, 35)))
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(82, 82, 82)
+                                .addComponent(jButtonLimpiarMatriz)))))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jComboBoxFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jButtonEstablecer)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonSuma)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jComboBoxFilas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jButtonEstablecer))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(305, 305, 305)
+                                .addComponent(jButtonLimpiarMatriz)
+                                .addGap(135, 135, 135))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(119, 119, 119)
+                                        .addComponent(jLabelOperador, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonResultado)
+                                        .addGap(47, 47, 47)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(38, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jButtonSuma)))
                         .addGap(18, 18, 18)
                         .addComponent(jButtonMultipEscalar)
                         .addGap(18, 18, 18)
@@ -285,30 +282,14 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
                         .addGap(18, 18, 18)
                         .addComponent(jButtonInversa)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonDeterminante)
+                        .addComponent(jButtonSolucionCramer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonSolucionCramer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanelMatriz2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelMatriz1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
                         .addComponent(jButtonSolucionGauss)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonDeterminante)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonResultado)
-                        .addGap(18, 18, 18)))
-                .addComponent(jLabel4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLimpiar)
-                        .addGap(63, 63, 63))))
+                        .addGap(69, 69, 69))))
         );
 
         pack();
@@ -322,17 +303,6 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
-    public void setjPanelMatriz1(JPanel jPanelMatriz1) {
-        this.jPanelMatriz1 = jPanelMatriz1;
-    }
-
-    public void setjPanelMatriz2(JPanel jPanelMatriz2) {
-        this.jPanelMatriz2 = jPanelMatriz2;
-    }
-
-    public void setjPanelResultado(JPanel jPanelResultado) {
-        this.jPanelResultado = jPanelResultado;
-    }
 
     public JButton getjButtonDeterminante() {
         return jButtonDeterminante;
@@ -348,6 +318,10 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
 
     public JButton getjButtonLimpiar() {
         return jButtonLimpiar;
+    }
+
+    public JLabel getjLabelOperador() {
+        return jLabelOperador;
     }
 
     public JButton getjButtonMultipEscalar() {
@@ -382,17 +356,6 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         return jComboBoxFilas;
     }
 
-    public JPanel getjPanelMatriz1() {
-        return jPanelMatriz1;
-    }
-
-    public JPanel getjPanelMatriz2() {
-        return jPanelMatriz2;
-    }
-
-    public JPanel getjPanelResultado() {
-        return jPanelResultado;
-    }
 
     /**
      * @param args the command line arguments
@@ -434,6 +397,7 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
     private javax.swing.JButton jButtonEstablecer;
     private javax.swing.JButton jButtonInversa;
     private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JButton jButtonLimpiarMatriz;
     private javax.swing.JButton jButtonMultipEscalar;
     private javax.swing.JButton jButtonMultiplicación;
     private javax.swing.JButton jButtonResultado;
@@ -446,9 +410,7 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanelMatriz1;
-    private javax.swing.JPanel jPanelMatriz2;
-    private javax.swing.JPanel jPanelResultado;
+    private javax.swing.JLabel jLabelOperador;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -456,6 +418,14 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
     private javax.swing.JTable jTableMatriz2;
     private javax.swing.JTable jTableResultados;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getjButtonLimpiarMatriz() {
+        return jButtonLimpiarMatriz;
+    }
+
+    public JScrollPane getjScrollPane3() {
+        return jScrollPane3;
+    }
 
     
 }

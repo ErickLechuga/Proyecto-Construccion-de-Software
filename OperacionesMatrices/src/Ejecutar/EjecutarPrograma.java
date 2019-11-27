@@ -6,6 +6,7 @@
 package Ejecutar;
 
 import Control.ControlOperacionesMatrices;
+import Modelo.Operaciones;
 import Vista.VistaOperacionesMatrices;
 
 /**
@@ -15,7 +16,8 @@ import Vista.VistaOperacionesMatrices;
 public class EjecutarPrograma {
     public static void main(String[] args) {
         VistaOperacionesMatrices vista = new VistaOperacionesMatrices();
-        ControlOperacionesMatrices control = new ControlOperacionesMatrices(vista);
+        Operaciones modelo = new Operaciones();
+        ControlOperacionesMatrices control = new ControlOperacionesMatrices(vista, modelo);
         vista.setVisible(true);
     }
 }
