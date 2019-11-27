@@ -70,8 +70,7 @@ public class ControlOperacionesMatrices implements ActionListener {
         //Metodo que verifica la operacion seleccionada
         botonesOperaciones(e);
 
-        if (view.getjButtonResultado() == e.getSource()) {
-
+        if (view.getjButtonResultado() == e.getSource()) {          
             TableCellEditor celltable = view.getjTableMatriz2().getCellEditor();  //Trae la celda que se esta editando
             TableCellEditor celltable2 = view.getjTableMatriz1().getCellEditor();
             if ((celltable != null) && (celltable2 != null)) {
@@ -96,7 +95,7 @@ public class ControlOperacionesMatrices implements ActionListener {
         if (view.getjButtonEstablecer() == e.getSource()) {
             int filas = Integer.parseInt(String.valueOf(view.getjComboBoxFilas().getSelectedItem()));
             int columnas = Integer.parseInt(String.valueOf(view.getjComboBoxColumnas().getSelectedItem()));
-
+            view.getjButtonResultado().setEnabled(true);
             if (filas != columnas) {
                 switch (operacion) {
                     case 3:
@@ -121,7 +120,7 @@ public class ControlOperacionesMatrices implements ActionListener {
             limpiarMatrices();
         }
         //evento al momento de seleccionar el tamaño de las filas y columnas
-        if (view.getjComboBoxColumnas() == e.getSource() || view.getjComboBoxColumnas() == e.getSource()) {
+        if (view.getjComboBoxFilas() == e.getSource() || view.getjComboBoxColumnas() == e.getSource()) {
             if (view.getjComboBoxColumnas().getSelectedItem() != "--"
                     && view.getjComboBoxFilas().getSelectedItem() != "--") {
                 view.getjButtonEstablecer().setEnabled(true);
@@ -181,7 +180,6 @@ public class ControlOperacionesMatrices implements ActionListener {
         view.getjButtonLimpiar().setEnabled(true);
         view.getjButtonMultipEscalar().setEnabled(false);
         view.getjButtonMultiplicación().setEnabled(false);
-        view.getjButtonResultado().setEnabled(true);
         view.getjButtonSolucionCramer().setEnabled(false);
         view.getjButtonSolucionGauss().setEnabled(false);
         view.getjButtonSuma().setEnabled(false);
