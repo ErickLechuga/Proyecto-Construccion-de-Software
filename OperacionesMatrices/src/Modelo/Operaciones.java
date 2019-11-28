@@ -21,8 +21,6 @@ public class Operaciones {
                         + matrizSumandoB[iFilas][iColumnas];
             }
         }
-
-        imprimeMatriz(matrizResultado);
         return matrizResultado;
 
     }

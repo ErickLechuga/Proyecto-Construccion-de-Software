@@ -70,14 +70,19 @@ public class ControlOperacionesMatrices implements ActionListener {
         //Metodo que verifica la operacion seleccionada
         botonesOperaciones(e);
 
-        if (view.getjButtonResultado() == e.getSource()) {          
-            TableCellEditor celltable = view.getjTableMatriz2().getCellEditor();  //Trae la celda que se esta editando
-            TableCellEditor celltable2 = view.getjTableMatriz1().getCellEditor();
+        if (view.getjButtonResultado() == e.getSource()) {
+            TableCellEditor celltable = view.getjTableMatriz1().getCellEditor();  //Trae la celda que se esta editando
+            TableCellEditor celltable2 = view.getjTableMatriz2().getCellEditor();
             if ((celltable != null) && (celltable2 != null)) {
                 celltable.stopCellEditing(); //Detiene la edicion de la celda
                 celltable2.stopCellEditing();
             }
-
+            if ((celltable != null)) {
+                celltable.stopCellEditing(); //Detiene la edicion de la celda 
+            }
+            if ((celltable2 != null)) {
+                celltable2.stopCellEditing();
+            }
             eventoOperaciones();
         }
 
@@ -170,8 +175,8 @@ public class ControlOperacionesMatrices implements ActionListener {
     }
 
     /**
-     * Metodo que bloquea los botones de operaciones al seleccionar una de las operaciones de
-     * matrices
+     * Metodo que bloquea los botones de operaciones al seleccionar una de las
+     * operaciones de matrices
      *
      */
     public void deshabilitarOperaciones() {
@@ -187,11 +192,11 @@ public class ControlOperacionesMatrices implements ActionListener {
         view.getjComboBoxFilas().setEnabled(true);
         view.getjButtonLimpiarMatriz().setEnabled(true);
     }
-    /**
-     * Metodo que habilita los botones de las operaciones e inhabilita los botones
-     * para realizar las operaciones
-     */
 
+    /**
+     * Metodo que habilita los botones de las operaciones e inhabilita los
+     * botones para realizar las operaciones
+     */
     public void habilitarOperaciones() {
         view.getjButtonDeterminante().setEnabled(true);
         view.getjButtonInversa().setEnabled(true);
@@ -207,10 +212,10 @@ public class ControlOperacionesMatrices implements ActionListener {
         view.getjButtonEstablecer().setEnabled(false);
         view.getjButtonLimpiarMatriz().setEnabled(false);
     }
+
     /**
      * Metodo que devuelve el color del boton seleccionado
      */
-
     public void regresarColorOperaciones() {
         view.getjButtonDeterminante().setBackground(Color.LIGHT_GRAY);
         view.getjButtonInversa().setBackground(Color.LIGHT_GRAY);
@@ -220,10 +225,11 @@ public class ControlOperacionesMatrices implements ActionListener {
         view.getjButtonSolucionGauss().setBackground(Color.LIGHT_GRAY);;
         view.getjButtonSuma().setBackground(Color.LIGHT_GRAY);
     }
-    /**
-     * Metodo que limpia las matrices previamente construidas al oprimir el boton Establecer Matriz
-     */
 
+    /**
+     * Metodo que limpia las matrices previamente construidas al oprimir el
+     * boton Establecer Matriz
+     */
     public void limpiarMatrices() {
         DefaultTableModel modelMatriz1 = (DefaultTableModel) view.getjTableMatriz1().getModel();
         DefaultTableModel modelMatriz2 = (DefaultTableModel) view.getjTableMatriz2().getModel();
@@ -235,16 +241,18 @@ public class ControlOperacionesMatrices implements ActionListener {
         modelMatrizResult.setRowCount(0);
         modelMatrizResult.setColumnCount(0);
     }
-    
-    /**Metodo que dependiendo el boton seleccionado realiza acciones como 
-     * cambiar el color del boton clickeado, deshabilita todos los botones de operaciones
-     * y cambia el JLabel con su operador correspondiente y en ciertos casos a usa igualdad
-     * 
-     * @param e 
+
+    /**
+     * Metodo que dependiendo el boton seleccionado realiza acciones como
+     * cambiar el color del boton clickeado, deshabilita todos los botones de
+     * operaciones y cambia el JLabel con su operador correspondiente y en
+     * ciertos casos a usa igualdad
+     *
+     * @param e
      */
     public void botonesOperaciones(ActionEvent e) {
-        
-        if (view.getjButtonSuma() == e.getSource()) {  
+
+        if (view.getjButtonSuma() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonSuma().setBackground(new Color(255, 50, 50));
             operacion = SUMA;
@@ -293,46 +301,54 @@ public class ControlOperacionesMatrices implements ActionListener {
             view.getjLabelOperador().setText("=");
         }
     }
+
     /**
      * Metodo que realiza la operacion seleccionada y que esta guardada en la
      * variable operacion
-     * 
+     *
      */
     public void eventoOperaciones() {
 
         float[][] matrizA = leerTablaA();
         float[][] matrizB = leerTablaB();
-        float[][] matrizResultado = new float[matrizA.length][matrizA[0].length];
-        if (operacion == SUMA) {
-            matrizResultado = modelo.sumar(matrizA, matrizB, matrizA.length, matrizA[0].length);
-            matrizResultado(matrizResultado);
-        }
-        if (operacion == MULT_ESCALAR) {
-            matrizResultado = modelo.multEscalar(matrizB[0][0], matrizA, matrizA.length, matrizA[0].length);
-            matrizResultado(matrizResultado);
-        }
-        if (operacion == MULT_MATRI) {
-            matrizResultado = modelo.producto(matrizA, matrizB, matrizA.length, matrizA[0].length, matrizB[0].length);
-            matrizResultado(matrizResultado);
-        }
-        if (operacion == INVERSA) {
-            if (modelo.determinante(matrizA) != 0) {
-                matrizResultado = modelo.Inversa(matrizA, matrizA.length);
+        try {
+            float[][] matrizResultado = new float[matrizA.length][matrizA[0].length];
+
+            if (operacion == SUMA) {
+                matrizResultado = modelo.sumar(matrizA, matrizB, matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
-            } else {
-                JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
             }
-        }
-        if (operacion == DETER) {
-            matrizResultado[0][0] = modelo.determinante(matrizA);
-            matrizResultado(matrizResultado);
+            if (operacion == MULT_ESCALAR) {
+                matrizResultado = modelo.multEscalar(matrizB[0][0], matrizA, matrizA.length, matrizA[0].length);
+                matrizResultado(matrizResultado);
+            }
+            if (operacion == MULT_MATRI) {
+                matrizResultado = modelo.producto(matrizA, matrizB, matrizA.length, matrizA[0].length, matrizB[0].length);
+                matrizResultado(matrizResultado);
+            }
+            if (operacion == INVERSA) {
+                if (modelo.determinante(matrizA) != 0) {
+                    matrizResultado = modelo.Inversa(matrizA, matrizA.length);
+                    matrizResultado(matrizResultado);
+                } else {
+                    JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
+                }
+            }
+            if (operacion == DETER) {
+                matrizResultado[0][0] = modelo.determinante(matrizA);
+                matrizResultado(matrizResultado);
+            }
+        } catch (NullPointerException e) {
+            return;
         }
 
     }
-    /**Metodo que lee la primera tabla de la vista, la convierte en matriz y 
+
+    /**
+     * Metodo que lee la primera tabla de la vista, la convierte en matriz y
      * devuelve esa misma matriz
-     * 
-     * @return 
+     *
+     * @return
      */
     public float[][] leerTablaA() {
         int nFilas = view.getjTableMatriz1().getRowCount();
@@ -341,15 +357,27 @@ public class ControlOperacionesMatrices implements ActionListener {
 
         for (int i = 0; i < nFilas; i++) {
             for (int j = 0; j < nColumnas; j++) {
-                matriz[i][j] = Float.parseFloat(String.valueOf(view.getjTableMatriz1().getValueAt(i, j)));
+                try {
+                    if (String.valueOf(view.getjTableMatriz1().getValueAt(i, j)).equals("")) {
+                        view.getjTableMatriz1().setValueAt(0, i, j);
+                        matriz[i][j] = Float.parseFloat(String.valueOf(view.getjTableMatriz1().getValueAt(i, j)));
+                    } else {
+                        matriz[i][j] = Float.parseFloat(String.valueOf(view.getjTableMatriz1().getValueAt(i, j)));
+                    }
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "introduzca solo numerales");
+                    return null;
+                }
             }
         }
         return matriz;
     }
-    /**Metodo que lee la segunda tabla de la vista, la convierte en matriz y 
+
+    /**
+     * Metodo que lee la segunda tabla de la vista, la convierte en matriz y
      * devuelve esa misma matriz
-     * 
-     * @return 
+     *
+     * @return
      */
     public float[][] leerTablaB() {
         int nFilas = view.getjTableMatriz2().getRowCount();
@@ -358,15 +386,28 @@ public class ControlOperacionesMatrices implements ActionListener {
 
         for (int i = 0; i < nFilas; i++) {
             for (int j = 0; j < nColumnas; j++) {
-                matriz[i][j] = Float.parseFloat(String.valueOf(view.getjTableMatriz2().getValueAt(i, j)));
+                try {
+                    Float.parseFloat(String.valueOf(view.getjTableMatriz2().getValueAt(i, j)));
+                    if (String.valueOf(view.getjTableMatriz2().getValueAt(i, j)).equals("")) {
+                        view.getjTableMatriz2().setValueAt(0, i, j);
+                        matriz[i][j] = Float.parseFloat(String.valueOf(view.getjTableMatriz2().getValueAt(i, j)));
+                    } else {
+                        matriz[i][j] = Float.parseFloat(String.valueOf(view.getjTableMatriz2().getValueAt(i, j)));
+                    }
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "introduzca solo numerales");
+                    return null;
+                }
             }
         }
         return matriz;
     }
-    /**El metodo matrizResultado llena la tabla de resultados de la vista
-     * con los resultados de la operacionrealizada.
-     * 
-     * @param matriz 
+
+    /**
+     * El metodo matrizResultado llena la tabla de resultados de la vista con
+     * los resultados de la operacionrealizada.
+     *
+     * @param matriz
      */
     public void matrizResultado(float[][] matriz) {
         DefaultTableModel modelMatriz1 = (DefaultTableModel) view.getjTableResultados().getModel();
@@ -374,11 +415,12 @@ public class ControlOperacionesMatrices implements ActionListener {
             modelMatriz1.setRowCount(1);
             modelMatriz1.setColumnCount(1);
             view.getjTableResultados().setValueAt(matriz[0][0], 0, 0);
-        } if ((operacion == GAUSS)||(operacion == CRAMER)) {
+        }
+        if ((operacion == GAUSS) || (operacion == CRAMER)) {
             modelMatriz1.setRowCount(matriz.length);
             modelMatriz1.setColumnCount(1);
-            for (int i = 0; i < matriz.length; i++) {               
-                    view.getjTableResultados().setValueAt(matriz[i][0], i, 0);               
+            for (int i = 0; i < matriz.length; i++) {
+                view.getjTableResultados().setValueAt(matriz[i][0], i, 0);
             }
         } else {
             modelMatriz1.setRowCount(matriz.length);
