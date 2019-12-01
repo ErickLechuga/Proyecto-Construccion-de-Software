@@ -338,6 +338,17 @@ public class ControlOperacionesMatrices implements ActionListener {
                 matrizResultado[0][0] = modelo.determinante(matrizA);
                 matrizResultado(matrizResultado);
             }
+            
+            if (operacion == GAUSS){
+                matrizResultado = modelo.solucionConGauss(matrizA, matrizB);
+                 matrizResultado(matrizResultado);
+            }
+            
+            
+            
+            
+            
+            
         } catch (NullPointerException e) {
             return;
         }
