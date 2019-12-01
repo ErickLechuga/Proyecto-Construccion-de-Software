@@ -430,8 +430,8 @@ public class ControlOperacionesMatrices implements ActionListener {
         if ((operacion == GAUSS) || (operacion == CRAMER)) {
             modelMatriz1.setRowCount(matriz.length);
             modelMatriz1.setColumnCount(1);
-            for (int i = 0; i < matriz.length; i++) {
-                view.getjTableResultados().setValueAt(matriz[i][0], i, 0);
+            for (int i = 0 ; i < matriz.length; i++) {
+                view.getjTableResultados().setValueAt(matriz[i][matriz.length], i, 0);
             }
         } else {
             modelMatriz1.setRowCount(matriz.length);

@@ -223,7 +223,13 @@ public class Operaciones {
             dividirEntrePivote(matrizAumentada, contFila);
             escalonaFila(matrizAumentada, contFila);
         }
-        return matrizEcuaciones;
+        
+//        for (int i = 0; i < matrizAumentada.length; i++) {
+//            for (int j = 0; j < matrizAumentada[0].length; j++) {
+//                System.out.println(matrizAumentada[i][j]);
+//            }
+//        }
+        return matrizAumentada;
     }
     
        /**
@@ -320,6 +326,8 @@ public class Operaciones {
         for (int contadorColum = 0; contadorColum< columnas; contadorColum++) {
             matriz[indicePivote][contadorColum] = matriz[indicePivote][contadorColum] / pivote;
         }
+        imprimir(matriz);
+        System.out.println("/n");
     }
     
     /**
@@ -354,7 +362,13 @@ public class Operaciones {
     
     
     
-    
+    public static void imprimir(float[][] matriz){
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[0].length; j++) {
+                System.out.println(matriz[i][j]);
+            }
+        }
+    }
     
    
 }
