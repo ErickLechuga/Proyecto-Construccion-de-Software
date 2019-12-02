@@ -347,7 +347,11 @@ public class Operaciones {
         }
     }
     
-    
+    /**
+     * @param matrizEcuaciones matriz de ecuaciones a la que se le aplicara el algoritmo
+     * @param vectorResultados matriz con los resultados de las ecuaciones
+     * @return matrizResultado 
+     */ 
     public float[][] solucionCramer(float[][] matrizEcuaciones, float[][] vectorResultados){
  
         float matrizResultado[][]=new float[matrizEcuaciones.length][matrizEcuaciones.length];
@@ -357,28 +361,34 @@ public class Operaciones {
         float matrizAuxiliar[][]= new float[matrizEcuaciones.length][matrizEcuaciones.length];
 
         for(int i=0; i<(matrizEcuaciones.length); i++){
-            matrizAuxiliar = sustituye(matrizEcuaciones,vectorResultados,i);
+            matrizAuxiliar = sustituirColumna(matrizEcuaciones,vectorResultados,i);
             determinanteMatrizAuxiliar =determinante(matrizAuxiliar);
             matrizResultado[i][0]=determinanteMatrizAuxiliar/determinanteMatrizEcuaciones;
         }    
         
         return matrizResultado;
     }
-    
-    public float [][] sustituye(float a[][], float b[][], int pos){
-        float c[][] =new float[a.length][a.length];
+    /*
+    *Metodo que suustituye una columna de una matriz con una columna dada en la posicion
+    *especifica
+    * @param matriz 
+    * @param 
+    * @param
+    */
+    public float [][] sustituirColumna(float matriz[][], float Columna[][], int posicion){
+        float nuevaMatriz[][] =new float[matriz.length][matriz.length];
 
-        for(int i=0;i<a.length;i++){
-            for(int j=0; j<a[i].length; j++){
-                if(j==pos){
-                    c[i][j]=b[i][0];
+        for(int i=0;i<matriz.length;i++){
+            for(int j=0; j<matriz[i].length; j++){
+                if(j==posicion){
+                    nuevaMatriz[i][j]=Columna[i][0];
                 }
                 else{
-                    c[i][j]=a[i][j];
+                    nuevaMatriz[i][j]=matriz[i][j];
                 }
             }
         }
-        return c;
+        return nuevaMatriz;
     }
 
     public static int suma(int a[]){
