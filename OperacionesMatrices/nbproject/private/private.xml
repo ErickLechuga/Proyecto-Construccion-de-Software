@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/erick/Desktop/Proyecto%20Construccion/Proyecto-Construccion-de-Software/OperacionesMatrices/src/Modelo/Operaciones.java</file>
-            <file>file:/C:/Users/erick/Desktop/Proyecto%20Construccion/Proyecto-Construccion-de-Software/OperacionesMatrices/src/Ejecutar/EjecutarPrograma.java</file>
-            <file>file:/C:/Users/erick/Desktop/Proyecto%20Construccion/Proyecto-Construccion-de-Software/OperacionesMatrices/src/Control/ControlOperacionesMatrices.java</file>
+            <file>file:/C:/Users/marti/Desktop/Rep_Construccion/OperacionesMatrices/src/Control/ControlOperacionesMatrices.java</file>
+            <file>file:/C:/Users/marti/Desktop/Rep_Construccion/OperacionesMatrices/src/Modelo/Operaciones.java</file>
+            <file>file:/C:/Users/marti/Desktop/Rep_Construccion/OperacionesMatrices/src/Modelo/Cramer.java</file>
+            <file>file:/C:/Users/marti/Desktop/Rep_Construccion/OperacionesMatrices/src/Ejecutar/EjecutarPrograma.java</file>
+            <file>file:/C:/Users/marti/Desktop/Rep_Construccion/OperacionesMatrices/src/Vista/VistaOperacionesMatrices.java</file>
         </group>
     </open-files>
 </project-private>

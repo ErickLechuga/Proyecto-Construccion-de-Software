@@ -112,6 +112,9 @@ public class ControlOperacionesMatrices implements ActionListener {
                     case 5:
                         JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen determinante");
                         break;
+                    case 7:
+                        JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
+                        break;
                     default:
                         establecerMatriz(filas, columnas);
                         break;
@@ -344,8 +347,12 @@ public class ControlOperacionesMatrices implements ActionListener {
                  matrizResultado(matrizResultado);
             }
             if (operacion == CRAMER){
+                if (modelo.determinante(matrizA) != 0){
                 matrizResultado = modelo.solucionCramer(matrizA, matrizB);
                 matrizResultado(matrizResultado);
+                }else{
+                    JOptionPane.showMessageDialog(null, "El sistema de ecuaciones no puede ser resuleto por Cramer, su determinante es cero");
+                }
             }
             
             
@@ -430,7 +437,7 @@ public class ControlOperacionesMatrices implements ActionListener {
             modelMatriz1.setColumnCount(1);
             view.getjTableResultados().setValueAt(matriz[0][0], 0, 0);
         }
-        if ((operacion == GAUSS) || (operacion == CRAMER)) {
+        if ((operacion == GAUSS)) {
             modelMatriz1.setRowCount(matriz.length);
             modelMatriz1.setColumnCount(1);
             for (int i = 0 ; i < matriz.length; i++) {
@@ -446,6 +453,14 @@ public class ControlOperacionesMatrices implements ActionListener {
                 }
             }
         }
+        if (operacion == CRAMER){
+            modelMatriz1.setRowCount(matriz.length);
+            modelMatriz1.setColumnCount(1);
+            for (int i = 0 ; i < matriz.length; i++) {
+                view.getjTableResultados().setValueAt(matriz[i][0], i, 0);
+            }
+        }
+        
 
     }
 

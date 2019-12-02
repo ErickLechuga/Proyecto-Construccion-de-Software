@@ -200,15 +200,7 @@ public class Operaciones {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-  
+
      
     /**
      *soluciona una ecuacion por Gauss.
@@ -309,11 +301,6 @@ public class Operaciones {
     }
 
    
-    
-   
-    
-  
-    
     /**
      * Metodo que divide una fila de una matriz entre el pivote para que la casilla del pivote
      * se vuelva 1.
@@ -359,6 +346,50 @@ public class Operaciones {
                 + matriz[contadorFila][contadorColum];
         }
     }
+    
+    
+    public float[][] solucionCramer(float[][] matrizEcuaciones, float[][] vectorResultados){
+ 
+        float matrizResultado[][]=new float[matrizEcuaciones.length][matrizEcuaciones.length];
+        float determinanteMatrizEcuaciones = determinante(matrizEcuaciones);
+
+        float determinanteMatrizAuxiliar;
+        float matrizAuxiliar[][]= new float[matrizEcuaciones.length][matrizEcuaciones.length];
+
+        for(int i=0; i<(matrizEcuaciones.length); i++){
+            matrizAuxiliar = sustituye(matrizEcuaciones,vectorResultados,i);
+            determinanteMatrizAuxiliar =determinante(matrizAuxiliar);
+            matrizResultado[i][0]=determinanteMatrizAuxiliar/determinanteMatrizEcuaciones;
+        }    
+        
+        return matrizResultado;
+    }
+    
+    public float [][] sustituye(float a[][], float b[][], int pos){
+        float c[][] =new float[a.length][a.length];
+
+        for(int i=0;i<a.length;i++){
+            for(int j=0; j<a[i].length; j++){
+                if(j==pos){
+                    c[i][j]=b[i][0];
+                }
+                else{
+                    c[i][j]=a[i][j];
+                }
+            }
+        }
+        return c;
+    }
+
+    public static int suma(int a[]){
+        int result=0;
+        for(int i=0; i<a.length; i++){
+            result=result+a[i];
+        }
+
+        return result;
+    }
+
     
     
     
