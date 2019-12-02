@@ -15,7 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  * Declaracion de la clase ControlOperacionesMatrices
@@ -341,24 +344,20 @@ public class ControlOperacionesMatrices implements ActionListener {
                 matrizResultado[0][0] = modelo.determinante(matrizA);
                 matrizResultado(matrizResultado);
             }
-            
-            if (operacion == GAUSS){
+
+            if (operacion == GAUSS) {
                 matrizResultado = modelo.solucionConGauss(matrizA, matrizB);
-                 matrizResultado(matrizResultado);
-            }
-            if (operacion == CRAMER){
-                if (modelo.determinante(matrizA) != 0){
-                matrizResultado = modelo.solucionCramer(matrizA, matrizB);
                 matrizResultado(matrizResultado);
-                }else{
+            }
+            if (operacion == CRAMER) {
+                if (modelo.determinante(matrizA) != 0) {
+                    matrizResultado = modelo.solucionCramer(matrizA, matrizB);
+                    matrizResultado(matrizResultado);
+                } else {
                     JOptionPane.showMessageDialog(null, "El sistema de ecuaciones no puede ser resuleto por Cramer, su determinante es cero");
                 }
             }
-            
-            
-            
-            
-            
+
         } catch (NullPointerException e) {
             return;
         }
@@ -432,16 +431,32 @@ public class ControlOperacionesMatrices implements ActionListener {
      */
     public void matrizResultado(float[][] matriz) {
         DefaultTableModel modelMatriz1 = (DefaultTableModel) view.getjTableResultados().getModel();
+        JTableHeader head = view.getjTableResultados().getTableHeader();
+            TableColumnModel tcm = head.getColumnModel();
+            
         if (operacion == DETER) {
             modelMatriz1.setRowCount(1);
             modelMatriz1.setColumnCount(1);
-            view.getjTableResultados().setValueAt(matriz[0][0], 0, 0);
-        }
-        if ((operacion == GAUSS)) {
+            float determinante = matriz[0][0];
+            TableColumn tabCM = tcm.getColumn(0);
+            tabCM.setHeaderValue("El determiante es:");
+            view.getjTableResultados().setValueAt(determinante, 0, 0);
+
+        } else if ((operacion == GAUSS)) {
             modelMatriz1.setRowCount(matriz.length);
             modelMatriz1.setColumnCount(1);
-            for (int i = 0 ; i < matriz.length; i++) {
+            TableColumn tabCM = tcm.getColumn(0);
+            tabCM.setHeaderValue("Los resultados son:");
+            for (int i = 0; i < matriz.length; i++) {
                 view.getjTableResultados().setValueAt(matriz[i][matriz.length], i, 0);
+            }
+        } else if (operacion == CRAMER) {
+            modelMatriz1.setRowCount(matriz.length);
+            modelMatriz1.setColumnCount(1);
+            TableColumn tabCM = tcm.getColumn(0);
+            tabCM.setHeaderValue("Los resultados son:");
+            for (int i = 0; i < matriz.length; i++) {
+                view.getjTableResultados().setValueAt(matriz[i][0], i, 0);
             }
         } else {
             modelMatriz1.setRowCount(matriz.length);
@@ -453,14 +468,6 @@ public class ControlOperacionesMatrices implements ActionListener {
                 }
             }
         }
-        if (operacion == CRAMER){
-            modelMatriz1.setRowCount(matriz.length);
-            modelMatriz1.setColumnCount(1);
-            for (int i = 0 ; i < matriz.length; i++) {
-                view.getjTableResultados().setValueAt(matriz[i][0], i, 0);
-            }
-        }
-        
 
     }
 
