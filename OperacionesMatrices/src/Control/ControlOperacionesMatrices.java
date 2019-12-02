@@ -70,9 +70,9 @@ public class ControlOperacionesMatrices implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        //Metodo que verifica la operacion seleccionada
+        //llamada al metodo que verifica la operacion seleccionada
         botonesOperaciones(e);
-
+        
         if (view.getjButtonResultado() == e.getSource()) {
             TableCellEditor celltable = view.getjTableMatriz1().getCellEditor();  //Trae la celda que se esta editando
             TableCellEditor celltable2 = view.getjTableMatriz2().getCellEditor();
@@ -116,6 +116,9 @@ public class ControlOperacionesMatrices implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen determinante");
                         break;
                     case 7:
+                        JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
+                        break;
+                    case 6:
                         JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
                         break;
                     default:
@@ -309,7 +312,7 @@ public class ControlOperacionesMatrices implements ActionListener {
     }
 
     /**
-     * Metodo que realiza la operacion seleccionada y que esta guardada en la
+     * Metodo que realiza la operacion seleccionada la cuela esta guardada en la
      * variable operacion
      *
      */
@@ -321,20 +324,20 @@ public class ControlOperacionesMatrices implements ActionListener {
             float[][] matrizResultado = new float[matrizA.length][matrizA[0].length];
 
             if (operacion == SUMA) {
-                matrizResultado = modelo.sumar(matrizA, matrizB, matrizA.length, matrizA[0].length);
+                matrizResultado = modelo.sumarMatrices(matrizA, matrizB, matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
             }
             if (operacion == MULT_ESCALAR) {
-                matrizResultado = modelo.multEscalar(matrizB[0][0], matrizA, matrizA.length, matrizA[0].length);
+                matrizResultado = modelo.multMatrizPorEscalar(matrizB[0][0], matrizA, matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
             }
             if (operacion == MULT_MATRI) {
-                matrizResultado = modelo.producto(matrizA, matrizB, matrizA.length, matrizA[0].length, matrizB[0].length);
+                matrizResultado = modelo.productoDosMatrices(matrizA, matrizB, matrizA.length, matrizA[0].length, matrizB[0].length);
                 matrizResultado(matrizResultado);
             }
             if (operacion == INVERSA) {
                 if (modelo.determinante(matrizA) != 0) {
-                    matrizResultado = modelo.Inversa(matrizA, matrizA.length);
+                    matrizResultado = modelo.inversaPorGaussJordan(matrizA);
                     matrizResultado(matrizResultado);
                 } else {
                     JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
@@ -346,8 +349,12 @@ public class ControlOperacionesMatrices implements ActionListener {
             }
 
             if (operacion == GAUSS) {
+                if (modelo.determinante(matrizA) != 0) {
                 matrizResultado = modelo.solucionConGauss(matrizA, matrizB);
                 matrizResultado(matrizResultado);
+                } else {
+                    JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
+                }
             }
             if (operacion == CRAMER) {
                 if (modelo.determinante(matrizA) != 0) {

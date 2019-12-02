@@ -4,21 +4,25 @@
  * and open the template in the editor.
  */
 package Modelo;
+
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author URIEL PEREZ and ERICK LECHUGA
  */
 public class Operaciones {
+
     /**
      * El metodo sumar, suma dos matrices devolviendo el resuktado
+     *
      * @param matrizSumandoA
      * @param matrizSumandoB
      * @param nFilas
      * @param nColumnas
-     * @return  devuelve la matriz resultado de la suma
+     * @return devuelve la matriz resultado de la suma
      */
-    public float[][] sumar(float matrizSumandoA[][], float matrizSumandoB[][], int nFilas, 
+    public float[][] sumarMatrices(float matrizSumandoA[][], float matrizSumandoB[][], int nFilas,
             final int nColumnas) {
         float[][] matrizResultado = new float[nFilas][nColumnas];
 
@@ -31,16 +35,18 @@ public class Operaciones {
         return matrizResultado;
 
     }
+
     /**
      * El metodo multEscalar multiplica una matriz por un numero especifico
+     *
      * @param escalar
      * @param matriz
      * @param nFilas
      * @param nColumnas
      * @return devuelve la matriz resultante de la multiplicacion
      */
-    public float[][] multEscalar(float escalar, float matriz[][], final int nFilas, 
-          final  int nColumnas) {
+    public float[][] multMatrizPorEscalar(float escalar, float matriz[][], final int nFilas,
+            final int nColumnas) {
         float[][] matrizEscalar = new float[nFilas][nColumnas];
 
         for (int iFilas = 0; iFilas < nFilas; iFilas++) {
@@ -50,8 +56,11 @@ public class Operaciones {
         }
         return matrizEscalar;
     }
+
     /**
-     * el metodo podructo multiplica dos matrices de los cuales deben de tener el mismo numero de filas y columnas
+     * el metodo podructo multiplica dos matrices de los cuales deben de tener
+     * el mismo numero de filas y columnas
+     *
      * @param matrizFactorA
      * @param matrizFactorB
      * @param nFilasA
@@ -59,8 +68,8 @@ public class Operaciones {
      * @param nColumnasB
      * @return regresa la matruz rsultante del producto
      */
-    public float[][] producto(float matrizFactorA[][], float matrizFactorB[][], int nFilasA, 
-          final int nColumnasA, final int nColumnasB) {
+    public float[][] productoDosMatrices(float matrizFactorA[][], float matrizFactorB[][], int nFilasA,
+            final int nColumnasA, final int nColumnasB) {
         float[][] matrizResultado = new float[nFilasA][nColumnasB];
 
         for (int iFilas = 0; iFilas < nFilasA; iFilas++) {
@@ -74,126 +83,10 @@ public class Operaciones {
 
         return matrizResultado;
     }
-    /**
-     * El metodo obtenerMatrizTranspuesta convierte la matriz en su transpuesta
-     * @param matriz
-     * @param numFilas
-     * @param numColumnas 
-     */
-    public void obtenerMatrizTranspuesta(float[][] matriz, int numFilas, int numColumnas) {
-        int numFilasTrans = numColumnas;
-        int numColumnasTrans = numFilas;
 
-        float[][] matrizTranspuesta = new float[numFilasTrans][numColumnasTrans];
-
-        for (int fila = 0; fila < numFilas; fila++) {
-
-            for (int columna = 0; columna < numColumnas; columna++) {
-                matrizTranspuesta[columna][fila] = matriz[fila][columna];
-            }
-        }
-    }
-
-    /**
-     * Metodo que calcula la inversa de una matriz
-     * @param matriz
-     * @param dimensionMatriz
-     * @return decuelve la inversa de la matriz dada
-     */
-    public float[][] Inversa(float matriz[][], int dimensionMatriz) {
-        float[][] matrizInversa = new float[dimensionMatriz][dimensionMatriz];
-        float[][] matrizAumentada = new float[dimensionMatriz][2 * dimensionMatriz];
-
-        if (determinante(matriz) == 0) {
-            System.out.println("El determinante de la matriz es cero por lo "
-                                 + "tanto la matriz no tiene inversa");
-            return null;
-        }
-
-        for (int contadorFila = 0; contadorFila < dimensionMatriz; contadorFila++) {
-            System.arraycopy(matriz[contadorFila], 0, matrizAumentada[contadorFila], 0, dimensionMatriz);
-        }
-
-        validarPivotes(matrizAumentada, dimensionMatriz);
-        aumentarMatriz(matrizAumentada, dimensionMatriz);
-
-        for (int pivote = 0; pivote < dimensionMatriz; pivote++) {
-            hacerUno(matrizAumentada, dimensionMatriz, pivote);
-            hacerCeros(matrizAumentada, dimensionMatriz, pivote);
-        }
-
-        for (int contadorFila = 0; contadorFila < dimensionMatriz; contadorFila++) {
-            for (int contadorColumna = 0; contadorColumna < dimensionMatriz; contadorColumna++) {
-                matrizInversa[contadorFila][contadorColumna]
-                        = matrizAumentada[contadorFila][contadorColumna + dimensionMatriz];
-            }
-        }
-        return matrizInversa;
-    }
-
-    /**
-     * El metodo hacerUno convierte los elementos de la matriz principal
-     * el puros unos, util cuando se quiere hacer resolucion de gauss y de cramer
-     * @param matriz
-     * @param dimensionMatriz
-     * @param pivote 
-     */
-    static void hacerUno(float matriz[][], int dimensionMatriz, int pivote) {
-        float elementoPivote = (1 / matriz[pivote][pivote]);
-        for (int posColumna = 0; posColumna < (2 * dimensionMatriz); posColumna++) {
-            matriz[pivote][posColumna] *= elementoPivote;
-        }
-    }
-
-    //hacer ceros los elementos que estan abajo y/o arriba del pivote
-    static void hacerCeros(float matriz[][], int dimensionMatriz, int pivote) {
-        for (int contadorFilas = 0; contadorFilas < dimensionMatriz; contadorFilas++) {
-            if (!(contadorFilas == pivote)) {
-                float elmntoTempCros = -matriz[contadorFilas][pivote];
-                for (int contadorColumnas = 0; contadorColumnas < (2 * dimensionMatriz); contadorColumnas++) {
-                    matriz[contadorFilas][contadorColumnas] += (elmntoTempCros
-                            * matriz[pivote][contadorColumnas]);
-                }
-            }
-        }
-    }
-    
-    /**
-     * El metodo aumentarMatriz une la matriz dada con la matriz identidad, que
-     * es la matriz cuya diagonal principal son puros unos y lo demas es puro cero
-     * @param matriz
-     * @param dimensionMatriz 
-     */
-    static void aumentarMatriz(float matriz[][], int dimensionMatriz) {
-        
-        for (int posicionFila = 0; posicionFila < dimensionMatriz; posicionFila++) {
-            for (int posicionColumna = (dimensionMatriz); posicionColumna < (2 * dimensionMatriz); posicionColumna++) {
-                if (Math.abs(posicionFila - posicionColumna) == dimensionMatriz) {
-                    matriz[posicionFila][posicionColumna] = 1;
-                }
-
-            }
-        }
-
-    }
-
-    //Validar que los pivotes de la matriz principal no sean cero para poder hacer
-    //las operaciones
-    static void validarPivotes(float matriz[][], int numeroFilas) {
-        for (int contadorFila = 0; contadorFila < numeroFilas; contadorFila++) {
-
-            if (matriz[contadorFila][contadorFila] == 0) {
-                System.out.println("el elemento " + contadorFila + " " + contadorFila + " es un cero");
-                for (int contadorColumna = 0; contadorColumna < numeroFilas; contadorColumna++) {
-                    matriz[contadorFila][contadorColumna] += 1;
-                }
-            }
-
-        }
-
-    }
     /**
      * El metodo determinante obtiene la determinante de una matriz
+     *
      * @param matriz
      * @return devuelve el determinante resultante
      */
@@ -227,201 +120,223 @@ public class Operaciones {
         }
         return suma;
     }
-  
     /**
-     *soluciona una ecuacion por Gauss.
-     *@param matrizEcuaciones  matriz de entrada
+     * Metodo que obtiene la inversa de una matriz
+     * @param matriz
+     * @return 
      */
-    public static float[][] solucionConGauss(float matrizEcuaciones[][],float ResultadosEcuaciones[][]){
+    public static float[][] inversaPorGaussJordan(float[][] matriz){
+        int dimension = matriz.length; 
+        //se crea la matriz identidad correspondiente
+        float[][] matrizIdentidad = new float[dimension][dimension];
+        
+        for (int iFila = 0; iFila < dimension; iFila++) {
+            for (int iColumna = 0; iColumna < dimension; iColumna++) {
+                if(iFila==iColumna){
+                    matrizIdentidad[iFila][iColumna] = 1;
+                }else{
+                    matrizIdentidad[iFila][iColumna] = 0;
+                }
+            }
+        }
+        
+        float[][] matrizAumentada = solucionConGauss(matriz, matrizIdentidad);
+        float[][] matrizInversa = new float[dimension][dimension];
+        
+        for (int contadorFila = 0; contadorFila < dimension; contadorFila++) {
+            for (int contadorColumna = 0; contadorColumna < dimension; contadorColumna++) {
+                matrizInversa[contadorFila][contadorColumna]
+                        = matrizAumentada[contadorFila][contadorColumna + dimension];
+            }
+        }
+        return matrizInversa;
+    }
+
+    /**
+     * soluciona una ecuacion por Gauss.
+     *
+     * @param matrizEcuaciones matriz de entrada
+     */
+    public static float[][] solucionConGauss(float matrizEcuaciones[][], float ResultadosEcuaciones[][]) {
         float[][] matrizAumentada;
         matrizAumentada = AumentaMatrizEcuacion(matrizEcuaciones, ResultadosEcuaciones);
-        
-        for (int contFila = 0;contFila<matrizAumentada.length;contFila++){
+
+        for (int contFila = 0; contFila < matrizAumentada.length; contFila++) {
             ChecarPivotes(matrizAumentada, contFila);
             dividirEntrePivote(matrizAumentada, contFila);
             escalonaFila(matrizAumentada, contFila);
         }
         return matrizAumentada;
     }
-    
-       /**
-        * Metodo que une la matriz de ecuaciones con la matriz de resultados
-        * para hacer una sola.
-        * @param matriz 
-        * @param matrizVector
-        */
-    
-      private static float[][] AumentaMatrizEcuacion(float matriz[][],float matrizVector[][]){
+
+    /**
+     * Metodo que une la matriz de ecuaciones con la matriz de resultados para
+     * hacer una sola.
+     *
+     * @param matriz
+     * @param matrizVector
+     */
+    private static float[][] AumentaMatrizEcuacion(float matriz[][], float matrizVector[][]) {
         int filas = matriz.length;
         int columnas = matriz[0].length;
-        float[][] matrizAumentada = new float[filas][columnas+1];
-        for(int indFilas =0; indFilas<matrizAumentada.length;indFilas++){
-            for (int indColum = 0; indColum<matrizAumentada[0].length; indColum++) {
-                if(indColum <matrizAumentada[0].length-1){
+        float[][] matrizAumentada = new float[filas][columnas + matrizVector[0].length];
+        for (int indFilas = 0; indFilas < matrizAumentada.length; indFilas++) {
+            for (int indColum = 0; indColum < matrizAumentada[0].length; indColum++) {
+                if (indColum < columnas) {
                     matrizAumentada[indFilas][indColum] = matriz[indFilas][indColum];
-                }
-                else{
-                    matrizAumentada[indFilas][indColum] = matrizVector[indFilas][0];
+                } else {
+                    matrizAumentada[indFilas][indColum] = matrizVector[indFilas][indColum-columnas];
                 }
             }
         }
         return matrizAumentada;
     }
-      
-      
+
     /**
-     * Metodo que revisa si hay un pivote que pueda ser cero, si no es cero, continua 
-     * haciendo el algoritmo, si es cero, llama a un metodo de busqueda de una fila con
-     * un pivote que no sea cero y luego intercambia las filas para que no se produzca error
-     * de division entre cero.
-     * @param matriz  a la que se le revisaran los pivotes en las filas
-     * @param indPivote es indice del pivote en el que preguntara si es distinto de cero
+     * Metodo que revisa si hay un pivote que pueda ser cero, si no es cero,
+     * continua haciendo el algoritmo, si es cero, llama a un metodo de busqueda
+     * de una fila con un pivote que no sea cero y luego intercambia las filas
+     * para que no se produzca error de division entre cero.
+     *
+     * @param matriz a la que se le revisaran los pivotes en las filas
+     * @param indPivote es indice del pivote en el que preguntara si es distinto
+     * de cero
      */
-    public static void ChecarPivotes(float matriz[][], int indPivote){
-        if(matriz[indPivote][indPivote]!=0.0){
-            
+    private static void ChecarPivotes(float matriz[][], int indPivote) {
+        if (matriz[indPivote][indPivote] != 0.0) {
+
             return;
-        }else{
-             //continua con el proceso 
-            int indicePivoteEncontrado = buscarFilaSinPivoteCero(matriz, indPivote+1);
-            intercambiarFilas(matriz, indPivote, indicePivoteEncontrado); 
+        } else {
+            //continua con el proceso 
+            int indicePivoteEncontrado = buscarFilaSinPivoteCero(matriz, indPivote + 1);
+            intercambiarFilas(matriz, indPivote, indicePivoteEncontrado);
         }
     }
-    
-     /*
+
+    /*
      *intercambia 2 filas de una matriz
      */
-    public static void intercambiarFilas(float matriz[][], int filaA, int filaB){
-        int colum = matriz[0].length;     
-        for (int columnasCount = 0;columnasCount < colum;columnasCount++) {
-                float aux = matriz[filaA][columnasCount];
-                matriz[filaA][columnasCount] = matriz[filaB][columnasCount];
-                matriz[filaB][columnasCount] = aux;
-        }       
+    private static void intercambiarFilas(float matriz[][], int filaA, int filaB) {
+        int colum = matriz[0].length;
+        for (int columnasCount = 0; columnasCount < colum; columnasCount++) {
+            float aux = matriz[filaA][columnasCount];
+            matriz[filaA][columnasCount] = matriz[filaB][columnasCount];
+            matriz[filaB][columnasCount] = aux;
+        }
     }
 
-    
-
     /**
-     * Metodo que busca una fila de la matriz en el que el pivote sea distinto de cero
+     * Metodo que busca una fila de la matriz en el que el pivote sea distinto
+     * de cero
+     *
      * @param matriz matriz a la cual se le busca el pivote
      * @param indiceABuscar indice que se empezara a buscar un pivote valido
-     * @return el indice de la fila  de la matriz con pivote valido, distinto de cero
+     * @return el indice de la fila de la matriz con pivote valido, distinto de
+     * cero
      */
-     private static int buscarFilaSinPivoteCero(float matriz[][], int indiceABuscar){
+    private static int buscarFilaSinPivoteCero(float matriz[][], int indiceABuscar) {
         int filas = matriz.length;
         for (int contadorFila = indiceABuscar; contadorFila < filas; contadorFila++) {
-            if(matriz[contadorFila][contadorFila]!=0.0){
-                System.out.println("ENCONTRADO"+ contadorFila);
+            if (matriz[contadorFila][contadorFila] != 0.0) {
+                System.out.println("ENCONTRADO" + contadorFila);
                 return contadorFila;
             }
-        }  
-        JOptionPane.showMessageDialog(null,"ERROR");
+        }
+        JOptionPane.showMessageDialog(null, "ERROR");
         return 0;
     }
 
-   
     /**
-     * Metodo que divide una fila de una matriz entre el pivote para que la casilla del pivote
-     * se vuelva 1.
+     * Metodo que divide una fila de una matriz entre el pivote para que la
+     * casilla del pivote se vuelva 1.
+     *
      * @param matriz matriz a la que se le aplicara el algoritmo
      * @param indicePivote indice del pivote que se esta analizando
-     */    
+     */
     private static void dividirEntrePivote(float matriz[][], int indicePivote) {
         int columnas = matriz[0].length;
-        float pivote = matriz[indicePivote][indicePivote];   
-        for (int contadorColum = 0; contadorColum< columnas; contadorColum++) {
+        float pivote = matriz[indicePivote][indicePivote];
+        for (int contadorColum = 0; contadorColum < columnas; contadorColum++) {
             matriz[indicePivote][contadorColum] = matriz[indicePivote][contadorColum] / pivote;
         }
     }
-    
+
     /**
-     * Metodo que escalona la fila del pivote especifico, volviendo 0 toda la columna del pivote,
-     * a excepcion del pivote mismo, de acuerdo al agoritmo de Gauss Jordan.
+     * Metodo que escalona la fila del pivote especifico, volviendo 0 toda la
+     * columna del pivote, a excepcion del pivote mismo, de acuerdo al agoritmo
+     * de Gauss Jordan.
+     *
      * @param matriz matriz a la que se le escalonara la fila
      * @param indicePivote indice del pivote que se esta analizando
-     */      
+     */
     private static void escalonaFila(float matriz[][], int indicePivote) {
         int filas = matriz.length;
         for (int contadorFila = 0; contadorFila < filas; contadorFila++) {
             if (contadorFila != indicePivote) {
-                multiplicarCoeficienteOpuesto(contadorFila,indicePivote, matriz);
+                multiplicarCoeficienteOpuesto(contadorFila, indicePivote, matriz);
             }
         }
     }
+
     /**
-     * Metodo que multiplica la fila de la matriz donde esta el pivote, por
-     * el opuesto en signo del numero de la misma columna donde esta el pivote,
-     * y luego lo suma con la otra fila  para poder hacer que la columna del pivote especifico, se encuentre entre 0's.
+     * Metodo que multiplica la fila de la matriz donde esta el pivote, por el
+     * opuesto en signo del numero de la misma columna donde esta el pivote, y
+     * luego lo suma con la otra fila para poder hacer que la columna del pivote
+     * especifico, se encuentre entre 0's.
+     *
      * @param matriz matriz a la que se le aplicara el algoritmo
      * @param indicePivote indice del pivote que se esta analizando
-     */      
-    private static void multiplicarCoeficienteOpuesto(int contadorFila, int indicePivote, float [][]matriz){
+     */
+    private static void multiplicarCoeficienteOpuesto(int contadorFila, int indicePivote, float[][] matriz) {
         int columnas = matriz[0].length;
-        float coeficienteOpuesto = -1 *matriz[contadorFila][indicePivote];
+        float coeficienteOpuesto = -1 * matriz[contadorFila][indicePivote];
         for (int contadorColum = 0; contadorColum < columnas; contadorColum++) {
             matriz[contadorFila][contadorColum] = (coeficienteOpuesto * matriz[indicePivote][contadorColum])
-                + matriz[contadorFila][contadorColum];
+                    + matriz[contadorFila][contadorColum];
         }
     }
-    
+
     /**
-     * @param matrizEcuaciones matriz de ecuaciones a la que se le aplicara el algoritmo
+     * @param matrizEcuaciones matriz de ecuaciones a la que se le aplicara el
+     * algoritmo
      * @param vectorResultados matriz con los resultados de las ecuaciones
-     * @return matrizResultado 
-     */ 
-    public float[][] solucionCramer(float[][] matrizEcuaciones, float[][] vectorResultados){
- 
-        float matrizResultado[][]=new float[matrizEcuaciones.length][matrizEcuaciones.length];
+     * @return matrizResultado
+     */
+    public float[][] solucionCramer(float[][] matrizEcuaciones, float[][] vectorResultados) {
+
+        float matrizResultado[][] = new float[matrizEcuaciones.length][matrizEcuaciones.length];
         float determinanteMatrizEcuaciones = determinante(matrizEcuaciones);
 
         float determinanteMatrizAuxiliar;
-        float matrizAuxiliar[][]= new float[matrizEcuaciones.length][matrizEcuaciones.length];
+        float matrizAuxiliar[][] = new float[matrizEcuaciones.length][matrizEcuaciones.length];
 
-        for(int i=0; i<(matrizEcuaciones.length); i++){
-            matrizAuxiliar = sustituirColumna(matrizEcuaciones,vectorResultados,i);
-            determinanteMatrizAuxiliar =determinante(matrizAuxiliar);
-            matrizResultado[i][0]=determinanteMatrizAuxiliar/determinanteMatrizEcuaciones;
-        }    
-        
+        for (int i = 0; i < (matrizEcuaciones.length); i++) {
+            matrizAuxiliar = sustituirColumna(matrizEcuaciones, vectorResultados, i);
+            determinanteMatrizAuxiliar = determinante(matrizAuxiliar);
+            matrizResultado[i][0] = determinanteMatrizAuxiliar / determinanteMatrizEcuaciones;
+        }
+
         return matrizResultado;
     }
     /*
-    *Metodo que suustituye una columna de una matriz con una columna dada en la posicion
-    *especifica
-    * @param matriz 
-    * @param 
-    * @param
-    */
-    public float [][] sustituirColumna(float matriz[][], float Columna[][], int posicion){
-        float nuevaMatriz[][] =new float[matriz.length][matriz.length];
+     *Metodo que suustituye una columna de una matriz con una columna dada en la posicion
+     *especifica
+     * @param matriz 
+     * @param 
+     * @param
+     */
+    private float[][] sustituirColumna(float matriz[][], float Columna[][], int posicion) {
+        float nuevaMatriz[][] = new float[matriz.length][matriz.length];
 
-        for(int i=0;i<matriz.length;i++){
-            for(int j=0; j<matriz[i].length; j++){
-                if(j==posicion){
-                    nuevaMatriz[i][j]=Columna[i][0];
-                }
-                else{
-                    nuevaMatriz[i][j]=matriz[i][j];
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (j == posicion) {
+                    nuevaMatriz[i][j] = Columna[i][0];
+                } else {
+                    nuevaMatriz[i][j] = matriz[i][j];
                 }
             }
         }
         return nuevaMatriz;
     }
-
-    public static int suma(int a[]){
-        int result=0;
-        for(int i=0; i<a.length; i++){
-            result=result+a[i];
-        }
-
-        return result;
-    }
-
-    
-    
-    
-   
-    
-   
 }
