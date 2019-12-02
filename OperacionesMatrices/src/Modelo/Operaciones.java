@@ -76,7 +76,7 @@ public class Operaciones {
 
         if (determinante(matriz) == 0) {
             System.out.println("El determinante de la matriz es cero por lo "
-                    + "tanto la matriz no tiene inversa");
+                                 + "tanto la matriz no tiene inversa");
             return null;
         }
 

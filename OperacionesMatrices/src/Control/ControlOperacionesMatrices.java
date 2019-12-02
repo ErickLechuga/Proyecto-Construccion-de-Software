@@ -104,7 +104,7 @@ public class ControlOperacionesMatrices implements ActionListener {
             if (filas != columnas) {
                 switch (operacion) {
                     case 3:
-                        JOptionPane.showMessageDialog(null, "la fila de la matriz A debe coicidir con las columnas de la matriz B");
+                        JOptionPane.showMessageDialog(null, "las filas de la matriz A debe coicidir con las columnas de la matriz B");
                         break;
                     case 4:
                         JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen inversa");
@@ -136,7 +136,7 @@ public class ControlOperacionesMatrices implements ActionListener {
     }
 
     /**
-     * Meodo que construye las matrices despues de seleccionar el tamaño de
+     * Metodo que construye las matrices despues de seleccionar el tamaño de
      * filas y columnas
      *
      * @param filas
@@ -343,7 +343,10 @@ public class ControlOperacionesMatrices implements ActionListener {
                 matrizResultado = modelo.solucionConGauss(matrizA, matrizB);
                  matrizResultado(matrizResultado);
             }
-            
+            if (operacion == CRAMER){
+                matrizResultado = modelo.solucionCramer(matrizA, matrizB);
+                matrizResultado(matrizResultado);
+            }
             
             
             
