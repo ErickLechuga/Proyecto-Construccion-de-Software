@@ -115,6 +115,9 @@ public class ControlOperacionesMatrices implements ActionListener {
                     case 5:
                         JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen determinante");
                         break;
+                    case 6:
+                        JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
+                        break;
                     case 7:
                         JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
                         break;
