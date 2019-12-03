@@ -332,7 +332,7 @@ public class ControlOperacionesMatrices implements ActionListener {
                     matrizResultado = Operaciones.solucionConGauss(matrizA, matrizB);
                     matrizResultado(matrizResultado);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
+                    JOptionPane.showMessageDialog(null, "El determinante de la matriz es 0 por lo tanto existen muchas soluciones");
                 }
             } else if (tipoOperacion == TipoOperacion.CRAMER) {
                 if (modelo.determinante(matrizA) != 0) {
