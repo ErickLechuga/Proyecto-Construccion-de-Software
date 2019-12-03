@@ -9,12 +9,13 @@ package Modelo;
  *
  * @author erick
  */
-public enum tipoOperacion {
+public enum TipoOperacion {
+
     SUMA,
     MULT_ESCALAR,
-    MULT_MATRI,
+    MULT_MATRIZ,
     INVERSA,
-    DETER,
+    DETERMINANTE,
     GAUSS,
     CRAMER,
 }

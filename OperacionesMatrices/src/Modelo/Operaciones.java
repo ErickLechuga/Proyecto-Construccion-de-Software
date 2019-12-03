@@ -120,29 +120,31 @@ public class Operaciones {
         }
         return suma;
     }
+
     /**
      * Metodo que obtiene la inversa de una matriz
+     *
      * @param matriz
-     * @return 
+     * @return
      */
-    public static float[][] inversaPorGaussJordan(float[][] matriz){
-        int dimension = matriz.length; 
+    public static float[][] inversaPorGaussJordan(float[][] matriz) {
+        int dimension = matriz.length;
         //se crea la matriz identidad correspondiente
         float[][] matrizIdentidad = new float[dimension][dimension];
-        
+
         for (int iFila = 0; iFila < dimension; iFila++) {
             for (int iColumna = 0; iColumna < dimension; iColumna++) {
-                if(iFila==iColumna){
+                if (iFila == iColumna) {
                     matrizIdentidad[iFila][iColumna] = 1;
-                }else{
+                } else {
                     matrizIdentidad[iFila][iColumna] = 0;
                 }
             }
         }
-        
+
         float[][] matrizAumentada = solucionConGauss(matriz, matrizIdentidad);
         float[][] matrizInversa = new float[dimension][dimension];
-        
+
         for (int contadorFila = 0; contadorFila < dimension; contadorFila++) {
             for (int contadorColumna = 0; contadorColumna < dimension; contadorColumna++) {
                 matrizInversa[contadorFila][contadorColumna]
@@ -156,6 +158,8 @@ public class Operaciones {
      * soluciona una ecuacion por Gauss.
      *
      * @param matrizEcuaciones matriz de entrada
+     * @param ResultadosEcuaciones
+     * @return
      */
     public static float[][] solucionConGauss(float matrizEcuaciones[][], float ResultadosEcuaciones[][]) {
         float[][] matrizAumentada;
@@ -185,7 +189,7 @@ public class Operaciones {
                 if (indColum < columnas) {
                     matrizAumentada[indFilas][indColum] = matriz[indFilas][indColum];
                 } else {
-                    matrizAumentada[indFilas][indColum] = matrizVector[indFilas][indColum-columnas];
+                    matrizAumentada[indFilas][indColum] = matrizVector[indFilas][indColum - columnas];
                 }
             }
         }
@@ -204,8 +208,6 @@ public class Operaciones {
      */
     private static void ChecarPivotes(float matriz[][], int indPivote) {
         if (matriz[indPivote][indPivote] != 0.0) {
-
-            return;
         } else {
             //continua con el proceso 
             int indicePivoteEncontrado = buscarFilaSinPivoteCero(matriz, indPivote + 1);
@@ -325,6 +327,7 @@ public class Operaciones {
      * @param 
      * @param
      */
+
     private float[][] sustituirColumna(float matriz[][], float Columna[][], int posicion) {
         float nuevaMatriz[][] = new float[matriz.length][matriz.length];
 

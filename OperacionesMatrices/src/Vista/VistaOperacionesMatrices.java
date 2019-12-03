@@ -6,12 +6,9 @@
 package Vista;
 
 import java.awt.Color;
-import java.util.Observable;
-import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -19,13 +16,14 @@ import javax.swing.JTable;
  *
  * @author erick
  */
-public class VistaOperacionesMatrices extends javax.swing.JFrame{
+public final class VistaOperacionesMatrices extends javax.swing.JFrame{
 
     /**
      * Creates new form VistaOperacionesMatrices
      */
     
     
+    @SuppressWarnings("empty-statement")
     public VistaOperacionesMatrices(){
         initComponents();
         getjComboBoxColumnas().setEnabled(false);
@@ -385,10 +383,8 @@ public class VistaOperacionesMatrices extends javax.swing.JFrame{
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaOperacionesMatrices().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VistaOperacionesMatrices().setVisible(true);
         });
     }
 

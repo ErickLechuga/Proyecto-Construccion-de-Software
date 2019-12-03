@@ -7,13 +7,11 @@ package Control;
 
 import Modelo.Operaciones;
 import Vista.VistaOperacionesMatrices;
+import Modelo.TipoOperacion;
 import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
@@ -29,21 +27,15 @@ import javax.swing.table.TableColumnModel;
 public class ControlOperacionesMatrices implements ActionListener {
 
     //Definicion de los atributos privados
-    private VistaOperacionesMatrices view;
-    private Operaciones modelo;
-    private int operacion = 0;
-    private static int SUMA = 1;
-    private static int MULT_ESCALAR = 2;
-    private static int MULT_MATRI = 3;
-    private static int INVERSA = 4;
-    private static int DETER = 5;
-    private static int GAUSS = 6;
-    private static int CRAMER = 7;
+    private final VistaOperacionesMatrices view;
+    private final Operaciones modelo;
+    private TipoOperacion tipoOperacion;
 
     /**
      * Creacion del constructor
      *
      * @param viewOperaciones
+     * @param operacionesMatriz
      */
     public ControlOperacionesMatrices(VistaOperacionesMatrices viewOperaciones, Operaciones operacionesMatriz) {
         this.view = viewOperaciones;
@@ -72,7 +64,7 @@ public class ControlOperacionesMatrices implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //llamada al metodo que verifica la operacion seleccionada
         botonesOperaciones(e);
-        
+
         if (view.getjButtonResultado() == e.getSource()) {
             TableCellEditor celltable = view.getjTableMatriz1().getCellEditor();  //Trae la celda que se esta editando
             TableCellEditor celltable2 = view.getjTableMatriz2().getCellEditor();
@@ -105,16 +97,16 @@ public class ControlOperacionesMatrices implements ActionListener {
             int columnas = Integer.parseInt(String.valueOf(view.getjComboBoxColumnas().getSelectedItem()));
             view.getjButtonResultado().setEnabled(true);
             if (filas != columnas) {
-                if(operacion == MULT_MATRI){
+                if (tipoOperacion == TipoOperacion.MULT_MATRIZ) {
                     JOptionPane.showMessageDialog(null, "las filas de la "
-                            + "matriz A debe coicidir con las columnas de la matriz B");                    
-                }else if(operacion == INVERSA){
-                    JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen inversa");                    
-                }else if(operacion == DETER){
+                            + "matriz A debe coicidir con las columnas de la matriz B");
+                } else if (tipoOperacion == TipoOperacion.INVERSA) {
+                    JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen inversa");
+                } else if (tipoOperacion == TipoOperacion.DETERMINANTE) {
                     JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen determinante");
-                }else if((operacion == GAUSS)||(operacion == CRAMER)){
+                } else if ((tipoOperacion == TipoOperacion.GAUSS) || (tipoOperacion == TipoOperacion.CRAMER)) {
                     JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
-                }else{
+                } else {
                     establecerMatriz(filas, columnas);
                 }
             } else {
@@ -149,17 +141,17 @@ public class ControlOperacionesMatrices implements ActionListener {
         modelMatriz1.setRowCount(filas);
         modelMatriz1.setColumnCount(columnas);
         //dependiendo de la operacion seleccionada se crea la segunda matriz
-        if (operacion == MULT_ESCALAR) {
+        if (tipoOperacion == TipoOperacion.MULT_ESCALAR) {
             //cuando es multiplicacion con un escalar
             modelMatriz2.setColumnCount(1);
             modelMatriz2.setRowCount(1);
         }
-        if ((operacion == SUMA) || (operacion == MULT_MATRI)) {
+        if ((tipoOperacion == TipoOperacion.SUMA) || (tipoOperacion == TipoOperacion.MULT_MATRIZ)) {
             //cuando es suma o multiplicacion de matrices
             modelMatriz2.setColumnCount(columnas);
             modelMatriz2.setRowCount(filas);
         }
-        if ((operacion == GAUSS) || (operacion == CRAMER)) {
+        if ((tipoOperacion == TipoOperacion.GAUSS) || (tipoOperacion == TipoOperacion.CRAMER)) {
             modelMatriz2.setColumnCount(1);
             modelMatriz2.setRowCount(filas);
         }
@@ -217,6 +209,7 @@ public class ControlOperacionesMatrices implements ActionListener {
     /**
      * Metodo que devuelve el color del boton seleccionado
      */
+    @SuppressWarnings("empty-statement")
     public void regresarColorOperaciones() {
         view.getjButtonDeterminante().setBackground(Color.LIGHT_GRAY);
         view.getjButtonInversa().setBackground(Color.LIGHT_GRAY);
@@ -256,49 +249,49 @@ public class ControlOperacionesMatrices implements ActionListener {
         if (view.getjButtonSuma() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonSuma().setBackground(new Color(255, 50, 50));
-            operacion = SUMA;
+            tipoOperacion = TipoOperacion.SUMA;
             view.getjLabelOperador().setText("+");
         }
 
         if (view.getjButtonDeterminante() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonDeterminante().setBackground(new Color(255, 50, 50));
-            operacion = DETER;
+            tipoOperacion = TipoOperacion.DETERMINANTE;
             view.getjLabelOperador().setText(null);
         }
 
         if (view.getjButtonInversa() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonInversa().setBackground(new Color(255, 50, 50));
-            operacion = INVERSA;
+            tipoOperacion = TipoOperacion.INVERSA;
             view.getjLabelOperador().setText(null);
         }
 
         if (view.getjButtonMultipEscalar() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonMultipEscalar().setBackground(new Color(255, 50, 50));
-            operacion = MULT_ESCALAR;
+            tipoOperacion = TipoOperacion.MULT_ESCALAR;
             view.getjLabelOperador().setText("*");
         }
 
         if (view.getjButtonMultiplicación() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonMultiplicación().setBackground(new Color(255, 50, 50));
-            operacion = MULT_MATRI;
+            tipoOperacion = TipoOperacion.MULT_MATRIZ;
             view.getjLabelOperador().setText("*");
         }
 
         if (view.getjButtonSolucionCramer() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonSolucionCramer().setBackground(new Color(255, 50, 50));
-            operacion = CRAMER;
+            tipoOperacion = TipoOperacion.CRAMER;
             view.getjLabelOperador().setText("=");
         }
 
         if (view.getjButtonSolucionGauss() == e.getSource()) {
             deshabilitarOperaciones();
             view.getjButtonSolucionGauss().setBackground(new Color(255, 50, 50));
-            operacion = GAUSS;
+            tipoOperacion = TipoOperacion.GAUSS;
             view.getjLabelOperador().setText("=");
         }
     }
@@ -314,41 +307,34 @@ public class ControlOperacionesMatrices implements ActionListener {
         float[][] matrizB = leerTablaB();
         try {
             float[][] matrizResultado = new float[matrizA.length][matrizA[0].length];
-
-            if (operacion == SUMA) {
+            //
+            if (tipoOperacion == TipoOperacion.SUMA) {
                 matrizResultado = modelo.sumarMatrices(matrizA, matrizB, matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
-            }
-            if (operacion == MULT_ESCALAR) {
+            } else if (tipoOperacion == TipoOperacion.MULT_ESCALAR) {
                 matrizResultado = modelo.multMatrizPorEscalar(matrizB[0][0], matrizA, matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
-            }
-            if (operacion == MULT_MATRI) {
+            } else if (tipoOperacion == TipoOperacion.MULT_MATRIZ) {
                 matrizResultado = modelo.productoDosMatrices(matrizA, matrizB, matrizA.length, matrizA[0].length, matrizB[0].length);
                 matrizResultado(matrizResultado);
-            }
-            if (operacion == INVERSA) {
+            } else if (tipoOperacion == TipoOperacion.INVERSA) {
                 if (modelo.determinante(matrizA) != 0) {
-                    matrizResultado = modelo.inversaPorGaussJordan(matrizA);
+                    matrizResultado = Operaciones.inversaPorGaussJordan(matrizA);
                     matrizResultado(matrizResultado);
                 } else {
                     JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
                 }
-            }
-            if (operacion == DETER) {
+            } else if (tipoOperacion == TipoOperacion.DETERMINANTE) {
                 matrizResultado[0][0] = modelo.determinante(matrizA);
                 matrizResultado(matrizResultado);
-            }
-
-            if (operacion == GAUSS) {
+            } else if (tipoOperacion == TipoOperacion.GAUSS) {
                 if (modelo.determinante(matrizA) != 0) {
-                matrizResultado = modelo.solucionConGauss(matrizA, matrizB);
-                matrizResultado(matrizResultado);
+                    matrizResultado = Operaciones.solucionConGauss(matrizA, matrizB);
+                    matrizResultado(matrizResultado);
                 } else {
                     JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
                 }
-            }
-            if (operacion == CRAMER) {
+            } else if (tipoOperacion == TipoOperacion.CRAMER) {
                 if (modelo.determinante(matrizA) != 0) {
                     matrizResultado = modelo.solucionCramer(matrizA, matrizB);
                     matrizResultado(matrizResultado);
@@ -358,7 +344,6 @@ public class ControlOperacionesMatrices implements ActionListener {
             }
 
         } catch (NullPointerException e) {
-            return;
         }
 
     }
@@ -431,9 +416,10 @@ public class ControlOperacionesMatrices implements ActionListener {
     public void matrizResultado(float[][] matriz) {
         DefaultTableModel modelMatriz1 = (DefaultTableModel) view.getjTableResultados().getModel();
         JTableHeader head = view.getjTableResultados().getTableHeader();
-            TableColumnModel tcm = head.getColumnModel();
-            
-        if (operacion == DETER) {
+        TableColumnModel tcm = head.getColumnModel();
+            //dependiendo de la operacion seleccionada previamente se 
+        //construye la matriz Resultado y se le pone los resultados obtenidos
+        if (tipoOperacion == TipoOperacion.DETERMINANTE) {
             modelMatriz1.setRowCount(1);
             modelMatriz1.setColumnCount(1);
             float determinante = matriz[0][0];
@@ -441,7 +427,7 @@ public class ControlOperacionesMatrices implements ActionListener {
             tabCM.setHeaderValue("El determiante es:");
             view.getjTableResultados().setValueAt(determinante, 0, 0);
 
-        } else if ((operacion == GAUSS)) {
+        } else if ((tipoOperacion == TipoOperacion.GAUSS)) {
             modelMatriz1.setRowCount(matriz.length);
             modelMatriz1.setColumnCount(1);
             TableColumn tabCM = tcm.getColumn(0);
@@ -449,7 +435,7 @@ public class ControlOperacionesMatrices implements ActionListener {
             for (int i = 0; i < matriz.length; i++) {
                 view.getjTableResultados().setValueAt(matriz[i][matriz.length], i, 0);
             }
-        } else if (operacion == CRAMER) {
+        } else if (tipoOperacion == TipoOperacion.CRAMER) {
             modelMatriz1.setRowCount(matriz.length);
             modelMatriz1.setColumnCount(1);
             TableColumn tabCM = tcm.getColumn(0);
