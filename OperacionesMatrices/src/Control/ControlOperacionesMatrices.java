@@ -105,25 +105,17 @@ public class ControlOperacionesMatrices implements ActionListener {
             int columnas = Integer.parseInt(String.valueOf(view.getjComboBoxColumnas().getSelectedItem()));
             view.getjButtonResultado().setEnabled(true);
             if (filas != columnas) {
-                switch (operacion) {
-                    case 3:
-                        JOptionPane.showMessageDialog(null, "las filas de la matriz A debe coicidir con las columnas de la matriz B");
-                        break;
-                    case 4:
-                        JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen inversa");
-                        break;
-                    case 5:
-                        JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen determinante");
-                        break;
-                    case 6:
-                        JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
-                        break;
-                    case 7:
-                        JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
-                        break;                   
-                    default:
-                        establecerMatriz(filas, columnas);
-                        break;
+                if(operacion == MULT_MATRI){
+                    JOptionPane.showMessageDialog(null, "las filas de la "
+                            + "matriz A debe coicidir con las columnas de la matriz B");                    
+                }else if(operacion == INVERSA){
+                    JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen inversa");                    
+                }else if(operacion == DETER){
+                    JOptionPane.showMessageDialog(null, "Solo las matrices de NXN tienen determinante");
+                }else if((operacion == GAUSS)||(operacion == CRAMER)){
+                    JOptionPane.showMessageDialog(null, "Las matriz solo puede ser cuadrada");
+                }else{
+                    establecerMatriz(filas, columnas);
                 }
             } else {
                 establecerMatriz(filas, columnas);
