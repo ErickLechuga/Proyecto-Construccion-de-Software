@@ -309,20 +309,24 @@ public class ControlOperacionesMatrices implements ActionListener {
             float[][] matrizResultado = new float[matrizA.length][matrizA[0].length];
             //
             if (tipoOperacion == TipoOperacion.SUMA) {
-                matrizResultado = modelo.sumarMatrices(matrizA, matrizB, matrizA.length, matrizA[0].length);
+                matrizResultado = modelo.sumarMatrices(matrizA, matrizB, 
+                        matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
             } else if (tipoOperacion == TipoOperacion.MULT_ESCALAR) {
-                matrizResultado = modelo.multMatrizPorEscalar(matrizB[0][0], matrizA, matrizA.length, matrizA[0].length);
+                matrizResultado = modelo.multMatrizPorEscalar(matrizB[0][0],
+                        matrizA, matrizA.length, matrizA[0].length);
                 matrizResultado(matrizResultado);
             } else if (tipoOperacion == TipoOperacion.MULT_MATRIZ) {
-                matrizResultado = modelo.productoDosMatrices(matrizA, matrizB, matrizA.length, matrizA[0].length, matrizB[0].length);
+                matrizResultado = modelo.productoDosMatrices(matrizA, matrizB, 
+                        matrizA.length, matrizA[0].length, matrizB[0].length);
                 matrizResultado(matrizResultado);
             } else if (tipoOperacion == TipoOperacion.INVERSA) {
                 if (modelo.determinante(matrizA) != 0) {
                     matrizResultado = Operaciones.inversaPorGaussJordan(matrizA);
                     matrizResultado(matrizResultado);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El determinante de la mtriz es 0 por lo tanto no tiene inversa");
+                    JOptionPane.showMessageDialog(null, "El determinante de la "
+                            + "mtriz es 0 por lo tanto no tiene inversa");
                 }
             } else if (tipoOperacion == TipoOperacion.DETERMINANTE) {
                 matrizResultado[0][0] = modelo.determinante(matrizA);
@@ -332,14 +336,16 @@ public class ControlOperacionesMatrices implements ActionListener {
                     matrizResultado = Operaciones.solucionConGauss(matrizA, matrizB);
                     matrizResultado(matrizResultado);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El determinante de la matriz es 0 por lo tanto existen muchas soluciones");
+                    JOptionPane.showMessageDialog(null, "El determinante de la "
+                            + "matriz es 0 por lo tanto existen muchas soluciones");
                 }
             } else if (tipoOperacion == TipoOperacion.CRAMER) {
                 if (modelo.determinante(matrizA) != 0) {
                     matrizResultado = modelo.solucionCramer(matrizA, matrizB);
                     matrizResultado(matrizResultado);
                 } else {
-                    JOptionPane.showMessageDialog(null, "El sistema de ecuaciones no puede ser resuleto por Cramer, su determinante es cero");
+                    JOptionPane.showMessageDialog(null, "El sistema de "
+                            + "ecuaciones no puede ser resuleto por Cramer, su determinante es cero");
                 }
             }
 
